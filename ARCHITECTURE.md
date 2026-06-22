@@ -10,12 +10,14 @@ ConstructGraph OS is built as a modern, decoupled web application. It uses a Nex
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS, shadcn/ui
 - **Graph Visualization**: React Flow
+- **Data Layer**: Typed API adapters (`apps/web/src/lib/api.ts`) using domain interfaces, configured via `NEXT_PUBLIC_API_URL`.
 - **Role**: Serve as the enterprise dashboard, presenting complex risk and claim data in a clean, executive-level interface.
 
 ### 2. Backend (`apps/api`)
 - **Framework**: FastAPI
 - **Language**: Python >= 3.10
-- **Data Validation**: Pydantic
+- **Data Validation**: Strict Pydantic domain models (`apps/api/app/domain/models.py`)
+- **Architecture**: Clean architecture with separated routers (`routers/`), services (`services/`), and data loaders (`data/`). Includes robust validation to enforce requirements like `source_evidence`.
 - **ORM**: SQLAlchemy
 - **Database**: SQLite (MVP phase) transitioning to PostgreSQL
 - **Role**: API gateway, business logic, data persistence, and deterministic risk/claim engine.

@@ -49,7 +49,7 @@
       "trigger_event": "Awareness of delay (RSK-001)",
       "risk_level": "High",
       "status": "Pending",
-      "evidence": ["EV-001", "Clause 14.3.2"],
+      "source_evidence": ["EV-001", "Clause 14.3.2"],
       "recommended_action": "Draft and issue Notice of Delay"
     },
     {
@@ -61,7 +61,7 @@
       "trigger_event": "Variation Approval (VO-012)",
       "risk_level": "Medium",
       "status": "Pending",
-      "evidence": ["VO-012", "Clause 8.4"],
+      "source_evidence": ["VO-012", "Clause 8.4"],
       "recommended_action": "Update schedule and submit for review"
     }
   ],

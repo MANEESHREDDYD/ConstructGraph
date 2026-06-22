@@ -7,12 +7,15 @@
 - [x] Initialize FastAPI Backend shell
 - [x] Create deterministic synthetic demo dataset
 
-## Phase 1: Demo Dashboard
-- Build Project Command Center UI
-- Connect frontend to static/deterministic backend demo data
-- Implement Risk, Obligation, and Claim cards
+## Phase 1: Demo Dashboard (Complete)
+- [x] Build Project Command Center UI
+- [x] Connect frontend to static/deterministic backend demo data
+- [x] Implement Risk, Obligation, and Claim cards
 
-## Phase 2: Data Model
+## Phase 2: Data Model & Domain Foundation (Current)
+- [x] Create clean backend architecture (routers, services, loaders).
+- [x] Implement strictly typed Pydantic models with robust data validation.
+- [x] Develop a frontend TypeScript API adapter configured via `NEXT_PUBLIC_API_URL`.
 - Implement SQLite/PostgreSQL schemas for projects, documents, clauses, drawings, RFIs, submittals, risks, claims, and obligations.
 
 ## Phase 3: Risk Engine

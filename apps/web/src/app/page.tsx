@@ -12,23 +12,23 @@ import { ProcurementRiskPanel } from '@/components/dashboard/ProcurementRiskPane
 import { RecommendedActionsPanel } from '@/components/dashboard/RecommendedActionsPanel';
 import { EvidenceCompletenessPanel } from '@/components/dashboard/EvidenceCompletenessPanel';
 import { TruthGraphPreview } from '@/components/dashboard/TruthGraphPreview';
+import { fetchCommandCenterData } from '@/lib/api';
+import { CommandCenterPayload } from '@/types/domain';
 
 export default function CommandCenter() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<CommandCenterPayload | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/demo/command-center')
-      .then(res => res.json())
-      .then(json => {
-        if (json.error) throw new Error(json.message);
-        setData(json);
+    fetchCommandCenterData()
+      .then(payload => {
+        setData(payload);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Failed to fetch from API, falling back to local adapter if possible", err);
-        setError("Failed to connect to ConstructGraph API. Ensure backend is running.");
+        console.error("Failed to fetch from API", err);
+        setError(err.message || "Failed to connect to ConstructGraph API. Ensure backend is running.");
         setLoading(false);
       });
   }, []);
@@ -48,7 +48,7 @@ export default function CommandCenter() {
           <AlertTriangle className="w-10 h-10 text-red-400 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-white mb-2">Connection Error</h2>
           <p className="text-slate-400 text-sm mb-4">{error}</p>
-          <p className="text-xs text-slate-500">Run `uvicorn app.main:app --reload` in `apps/api`.</p>
+          <p className="text-xs text-slate-500">Ensure the backend API is running and NEXT_PUBLIC_API_URL is configured.</p>
         </div>
       </div>
     );

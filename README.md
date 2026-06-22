@@ -10,7 +10,10 @@ To build a product far beyond existing construction document-intelligence tools.
 
 ## Architecture
 - **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS
+  - Uses typed API adapters and `NEXT_PUBLIC_API_URL` for backend connections.
 - **Backend**: FastAPI (Python), PostgreSQL / SQLite
+  - Implements a Clean Architecture with typed Pydantic domain models, separate routers, and dedicated service layers (`command_center_service.py`, `graph_service.py`).
+  - Includes robust payload validation ensuring strict schema adherence for graphs, claims, risks, and evidence tracing.
 - **Intelligence Layer**: Rule-based MVP transitioning to advanced Graph / RAG AI systems.
 
 ## Getting Started

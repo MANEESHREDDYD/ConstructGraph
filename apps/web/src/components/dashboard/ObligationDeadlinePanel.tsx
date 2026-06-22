@@ -7,7 +7,7 @@ interface Obligation {
   obligation: string;
   due_date: string;
   risk_level: string;
-  evidence: string[];
+  source_evidence: string[];
 }
 
 interface ObligationDeadlinePanelProps {
@@ -40,7 +40,7 @@ export function ObligationDeadlinePanel({ obligations }: ObligationDeadlinePanel
                 </span>
               </div>
               <div className="flex flex-wrap gap-2 mt-1">
-                {obl.evidence.map((ev, i) => (
+                {obl.source_evidence.map((ev, i) => (
                   <EvidenceBadge key={i} label={ev} />
                 ))}
               </div>
