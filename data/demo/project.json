@@ -3,9 +3,11 @@
     "id": "PRJ-001",
     "name": "Riverside Medical Center Expansion — Phase 2",
     "status": "Active",
+    "phase": "Construction",
     "health_score": 72,
     "cost_exposure": 145000,
-    "schedule_exposure_days": 12
+    "schedule_exposure_days": 12,
+    "evidence_completeness_score": 85
   },
   "risks": [
     {
@@ -21,6 +23,20 @@
       "status": "Open",
       "owner": "Project Manager",
       "due_date": "2026-06-25"
+    },
+    {
+      "id": "RSK-002",
+      "title": "Structural steel coordination issue",
+      "severity": "Medium",
+      "probability": "High",
+      "financial_exposure": 25000,
+      "schedule_exposure_days": 3,
+      "affected_party": "Main Contractor",
+      "source_evidence": ["RFI-042", "DWG-S204"],
+      "recommended_action": "Schedule coordination meeting with structural engineer",
+      "status": "Open",
+      "owner": "Design Manager",
+      "due_date": "2026-06-28"
     }
   ],
   "obligations": [
@@ -33,8 +49,20 @@
       "trigger_event": "Awareness of delay (RSK-001)",
       "risk_level": "High",
       "status": "Pending",
-      "evidence": ["EV-001"],
+      "evidence": ["EV-001", "Clause 14.3.2"],
       "recommended_action": "Draft and issue Notice of Delay"
+    },
+    {
+      "id": "OBL-002",
+      "obligation": "Submit revised baseline schedule incorporating approved variations within 14 days.",
+      "responsible_party": "Contractor",
+      "source_clause": "Clause 8.4",
+      "due_date": "2026-07-02",
+      "trigger_event": "Variation Approval (VO-012)",
+      "risk_level": "Medium",
+      "status": "Pending",
+      "evidence": ["VO-012", "Clause 8.4"],
+      "recommended_action": "Update schedule and submit for review"
     }
   ],
   "claims": [
@@ -49,7 +77,8 @@
       "cost_impact": 60000,
       "evidence_completeness_score": 85,
       "missing_evidence_checklist": ["Subcontractor Quote"],
-      "draft_notice_available": true
+      "draft_notice_available": true,
+      "source_evidence": ["RFI-042", "DWG-S100"]
     }
   ],
   "evidence_records": [
@@ -58,7 +87,14 @@
       "type": "email",
       "title": "Supplier Lead Time Update - Curtain Wall",
       "date": "2026-06-18",
-      "linked_to": ["RSK-001"]
+      "linked_to": ["RSK-001", "PROC-005"]
+    },
+    {
+      "id": "EV-002",
+      "type": "photo",
+      "title": "Site condition - Level 2 slab",
+      "date": "2026-06-20",
+      "linked_to": ["RFI-042"]
     }
   ],
   "rfis": [
@@ -68,6 +104,13 @@
       "status": "Open",
       "days_overdue": 2,
       "blocking": ["ACT-345"]
+    },
+    {
+      "id": "RFI-043",
+      "title": "HVAC duct clash with cable tray in Corridor A",
+      "status": "Open",
+      "days_overdue": 0,
+      "blocking": []
     }
   ],
   "submittals": [
@@ -77,6 +120,13 @@
       "status": "Pending Approval",
       "lead_time_weeks": 12,
       "blocking": ["ACT-340"]
+    },
+    {
+      "id": "SUB-023",
+      "title": "Generator Technical Data",
+      "status": "Overdue",
+      "lead_time_weeks": 20,
+      "blocking": ["ACT-400"]
     }
   ],
   "schedule_activities": [
@@ -86,7 +136,8 @@
       "start_date": "2026-09-01",
       "end_date": "2026-09-21",
       "status": "Blocked",
-      "critical_path": true
+      "critical_path": true,
+      "source_evidence": ["SUB-022"]
     },
     {
       "id": "ACT-345",
@@ -94,7 +145,8 @@
       "start_date": "2026-07-10",
       "end_date": "2026-07-25",
       "status": "At Risk",
-      "critical_path": true
+      "critical_path": true,
+      "source_evidence": ["RFI-042"]
     }
   ],
   "procurement_items": [
@@ -106,13 +158,52 @@
       "lead_time_weeks": 16,
       "required_on_site_date": "2026-10-01",
       "forecast_delivery_date": "2026-10-15",
-      "risk_level": "High"
+      "risk_level": "High",
+      "source_evidence": ["EV-001"]
+    },
+    {
+      "id": "PROC-006",
+      "name": "Custom AHUs",
+      "supplier": "AirTech",
+      "approval_status": "Pending",
+      "lead_time_weeks": 24,
+      "required_on_site_date": "2026-11-01",
+      "forecast_delivery_date": "2026-11-20",
+      "risk_level": "High",
+      "source_evidence": ["SUB-023"]
     }
   ],
   "graph_edges": [
     {"source": "SUB-022", "target": "ACT-340", "relationship": "blocks"},
     {"source": "RFI-042", "target": "ACT-345", "relationship": "blocks"},
     {"source": "EV-001", "target": "RSK-001", "relationship": "supports"},
-    {"source": "RSK-001", "target": "OBL-001", "relationship": "triggers"}
+    {"source": "RSK-001", "target": "OBL-001", "relationship": "triggers"},
+    {"source": "SUB-023", "target": "PROC-006", "relationship": "blocks"},
+    {"source": "RFI-042", "target": "CLM-001", "relationship": "triggers"},
+    {"source": "Clause 14.3.2", "target": "OBL-001", "relationship": "creates"},
+    {"source": "DWG-S100", "target": "CLM-001", "relationship": "evidence_for"}
+  ],
+  "recommended_actions": [
+    {
+      "id": "ACT-REC-1",
+      "title": "Escalate approval for Curtain Wall Shop Drawings (SUB-022)",
+      "priority": "High",
+      "type": "Escalation",
+      "source_evidence": ["SUB-022", "RSK-001"]
+    },
+    {
+      "id": "ACT-REC-2",
+      "title": "Draft Notice of Delay for Curtain Wall (OBL-001)",
+      "priority": "High",
+      "type": "Draft",
+      "source_evidence": ["Clause 14.3.2", "RSK-001"]
+    },
+    {
+      "id": "ACT-REC-3",
+      "title": "Chase response for RFI-042 (Structural Steel)",
+      "priority": "Medium",
+      "type": "Follow-up",
+      "source_evidence": ["RFI-042", "ACT-345"]
+    }
   ]
 }
