@@ -49,3 +49,21 @@ def test_validation_failure_missing_evidence():
         response = client.get("/api/demo/command-center")
         assert response.status_code == 500
         assert "Data validation failed" in response.json()["detail"]
+
+def test_source_evidence_is_populated():
+    response = client.get("/api/demo/command-center")
+    assert response.status_code == 200
+    data = response.json()
+    
+    def check_evidence(items, name):
+        for item in items:
+            assert "source_evidence" in item, f"Item in {name} is missing source_evidence"
+            assert isinstance(item["source_evidence"], list), f"source_evidence in {name} is not a list"
+            assert len(item["source_evidence"]) > 0, f"source_evidence in {name} is empty"
+
+    check_evidence(data["risks"], "risks")
+    check_evidence(data["claims"], "claims")
+    check_evidence(data["obligations"], "obligations")
+    check_evidence(data["schedule_blockers"], "schedule_blockers")
+    check_evidence(data["procurement_blockers"], "procurement_blockers")
+    check_evidence(data["recommended_actions"], "recommended_actions")

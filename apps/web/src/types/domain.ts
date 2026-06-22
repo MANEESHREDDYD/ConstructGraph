@@ -77,6 +77,11 @@ export interface GraphEdge {
   relationship: string;
 }
 
+export interface GraphPayload {
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+}
+
 export interface CommandCenterMetrics {
   high_risk_count: number;
   open_rfis: number;
@@ -93,8 +98,5 @@ export interface CommandCenterPayload {
   procurement_blockers: ProcurementItem[];
   schedule_blockers: ScheduleActivity[];
   recommended_actions: RecommendedAction[];
-  graph: {
-    nodes: GraphNode[];
-    edges: GraphEdge[];
-  };
+  graph: GraphPayload;
 }

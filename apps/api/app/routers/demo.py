@@ -3,6 +3,7 @@ from typing import List
 from app.services.command_center_service import get_command_center_payload
 from app.domain.models import Project, Risk, Obligation, Claim, CommandCenterPayload
 from app.services.graph_service import normalize_and_deduplicate_graph
+from app.data.demo_loader import load_demo_data
 
 router = APIRouter(prefix="/api/demo", tags=["demo"])
 
@@ -41,7 +42,6 @@ def get_claims():
 @router.get("/graph")
 def get_graph():
     try:
-        from app.data.demo_loader import load_demo_data
         data = load_demo_data()
         edges = data.get("graph_edges", [])
         return normalize_and_deduplicate_graph(edges)
@@ -59,7 +59,3 @@ def get_command_center():
         return payload_dict
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-def load_demo_data():
-    from app.data.demo_loader import load_demo_data
-    return load_demo_data()

@@ -71,7 +71,7 @@ class RecommendedAction(BaseModel):
     title: str
     priority: Literal["High", "Medium", "Low"]
     type: str
-    source_evidence: List[str]
+    source_evidence: List[str] = Field(..., min_length=1)
 
 class GraphNode(BaseModel):
     id: str
@@ -81,13 +81,23 @@ class GraphEdge(BaseModel):
     target: str
     relationship: str
 
+class GraphPayload(BaseModel):
+    nodes: List[GraphNode]
+    edges: List[GraphEdge]
+
+class CommandCenterMetrics(BaseModel):
+    high_risk_count: int
+    open_rfis: int
+    overdue_submittals: int
+    active_claims: int
+
 class CommandCenterPayload(BaseModel):
     project: Project
-    metrics: dict
+    metrics: CommandCenterMetrics
     risks: List[Risk]
     obligations: List[Obligation]
     claims: List[Claim]
     procurement_blockers: List[ProcurementItem]
     schedule_blockers: List[ScheduleActivity]
     recommended_actions: List[RecommendedAction]
-    graph: dict
+    graph: GraphPayload

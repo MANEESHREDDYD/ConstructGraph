@@ -1,7 +1,7 @@
 import json
 import os
 from typing import Dict, Any
-from app.domain.models import CommandCenterPayload, Project, Risk, Obligation, Claim, RFI, Submittal, ScheduleActivity, ProcurementItem, RecommendedAction, GraphNode, GraphEdge
+from app.domain.models import CommandCenterPayload, Project, Risk, Obligation, Claim, RFI, Submittal, ScheduleActivity, ProcurementItem, RecommendedAction, GraphNode, GraphEdge, CommandCenterMetrics, GraphPayload
 
 def load_demo_data() -> Dict[str, Any]:
     demo_data_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "data", "demo", "project.json")
@@ -47,12 +47,12 @@ def validate_and_load_command_center_payload() -> CommandCenterPayload:
         
         active_claims = len(claims)
         
-        metrics = {
-            "high_risk_count": high_risk_count,
-            "open_rfis": open_rfis,
-            "overdue_submittals": overdue_submittals,
-            "active_claims": active_claims
-        }
+        metrics = CommandCenterMetrics(
+            high_risk_count=high_risk_count,
+            open_rfis=open_rfis,
+            overdue_submittals=overdue_submittals,
+            active_claims=active_claims
+        )
         
         pending_obligations = [o for o in obligations if o.due_date] # Can refine status filtering if we add status to Obligation
         
@@ -65,10 +65,10 @@ def validate_and_load_command_center_payload() -> CommandCenterPayload:
             nodes_dict[e.source] = GraphNode(id=e.source)
             nodes_dict[e.target] = GraphNode(id=e.target)
             
-        graph = {
-            "nodes": [n.model_dump() for n in nodes_dict.values()],
-            "edges": [e.model_dump() for e in edges]
-        }
+        graph = GraphPayload(
+            nodes=list(nodes_dict.values()),
+            edges=edges
+        )
         
         payload = CommandCenterPayload(
             project=project,
