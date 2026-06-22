@@ -82,14 +82,16 @@ class GraphEdge(BaseModel):
     relationship: str
 
 class GraphPayload(BaseModel):
-    nodes: List[GraphNode]
-    edges: List[GraphEdge]
+    nodes: list[GraphNode]
+    edges: list[GraphEdge]
 
 class CommandCenterMetrics(BaseModel):
     high_risk_count: int
     open_rfis: int
     overdue_submittals: int
     active_claims: int
+    total_cost_exposure: int | None = None
+    total_schedule_exposure_days: int | None = None
 
 class CommandCenterPayload(BaseModel):
     project: Project

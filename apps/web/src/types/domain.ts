@@ -87,6 +87,8 @@ export interface CommandCenterMetrics {
   open_rfis: number;
   overdue_submittals: number;
   active_claims: number;
+  total_cost_exposure?: number | null;
+  total_schedule_exposure_days?: number | null;
 }
 
 export interface CommandCenterPayload {
