@@ -1,0 +1,118 @@
+{
+  "project": {
+    "id": "PRJ-001",
+    "name": "Riverside Medical Center Expansion — Phase 2",
+    "status": "Active",
+    "health_score": 72,
+    "cost_exposure": 145000,
+    "schedule_exposure_days": 12
+  },
+  "risks": [
+    {
+      "id": "RSK-001",
+      "title": "Curtain wall installation delay likely",
+      "severity": "High",
+      "probability": "High",
+      "financial_exposure": 85000,
+      "schedule_exposure_days": 9,
+      "affected_party": "Subcontractor - GlassTech",
+      "source_evidence": ["SUB-022", "ACT-340", "EV-001"],
+      "recommended_action": "Escalate approval and issue delay reservation notice",
+      "status": "Open",
+      "owner": "Project Manager",
+      "due_date": "2026-06-25"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "OBL-001",
+      "obligation": "Contractor must issue written delay notice within 5 business days of becoming aware of a delay event.",
+      "responsible_party": "Contractor",
+      "source_clause": "Clause 14.3.2",
+      "due_date": "2026-06-25",
+      "trigger_event": "Awareness of delay (RSK-001)",
+      "risk_level": "High",
+      "status": "Pending",
+      "evidence": ["EV-001"],
+      "recommended_action": "Draft and issue Notice of Delay"
+    }
+  ],
+  "claims": [
+    {
+      "id": "CLM-001",
+      "title": "Variation for structural steel modification",
+      "entitlement_basis": "Drawing Conflict (Rev B vs Rev C)",
+      "triggering_event": "RFI-042 response",
+      "notice_deadline": "2026-06-30",
+      "affected_documents": ["DWG-S100", "SPEC-05120"],
+      "schedule_impact_days": 3,
+      "cost_impact": 60000,
+      "evidence_completeness_score": 85,
+      "missing_evidence_checklist": ["Subcontractor Quote"],
+      "draft_notice_available": true
+    }
+  ],
+  "evidence_records": [
+    {
+      "id": "EV-001",
+      "type": "email",
+      "title": "Supplier Lead Time Update - Curtain Wall",
+      "date": "2026-06-18",
+      "linked_to": ["RSK-001"]
+    }
+  ],
+  "rfis": [
+    {
+      "id": "RFI-042",
+      "title": "Clarification on structural steel connection at Grid 4",
+      "status": "Open",
+      "days_overdue": 2,
+      "blocking": ["ACT-345"]
+    }
+  ],
+  "submittals": [
+    {
+      "id": "SUB-022",
+      "title": "Curtain Wall Shop Drawings",
+      "status": "Pending Approval",
+      "lead_time_weeks": 12,
+      "blocking": ["ACT-340"]
+    }
+  ],
+  "schedule_activities": [
+    {
+      "id": "ACT-340",
+      "name": "Install Level 2 Curtain Wall",
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-21",
+      "status": "Blocked",
+      "critical_path": true
+    },
+    {
+      "id": "ACT-345",
+      "name": "Erect Structural Steel Level 2",
+      "start_date": "2026-07-10",
+      "end_date": "2026-07-25",
+      "status": "At Risk",
+      "critical_path": true
+    }
+  ],
+  "procurement_items": [
+    {
+      "id": "PROC-005",
+      "name": "Level 2 Switchgear",
+      "supplier": "PowerCo",
+      "approval_status": "Approved",
+      "lead_time_weeks": 16,
+      "required_on_site_date": "2026-10-01",
+      "forecast_delivery_date": "2026-10-15",
+      "risk_level": "High"
+    }
+  ],
+  "graph_edges": [
+    {"source": "SUB-022", "target": "ACT-340", "relationship": "blocks"},
+    {"source": "RFI-042", "target": "ACT-345", "relationship": "blocks"},
+    {"source": "EV-001", "target": "RSK-001", "relationship": "supports"},
+    {"source": "RSK-001", "target": "OBL-001", "relationship": "triggers"}
+  ]
+}

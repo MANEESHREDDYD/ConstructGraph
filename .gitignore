@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js
+.next/
+out/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+env/
+.env
+
+# Build outputs
+dist
+.vercel
+
+# Misc
+.DS_Store
+*.pem
+.idea/
+.vscode/
+*.log
